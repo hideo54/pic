@@ -17,7 +17,7 @@ To be implemented. Currently you need to place your image manually.
 
 ## Download
 
-Let's say you want to download `background.png` in `icons/` directory, which original size is 1920x1080.
+Let's say you want to download `background.png` in `icons/` directory, whose original size is 1920x1080.
 
 ### To get the original image
 
@@ -25,7 +25,7 @@ Just access to `/icons/main.png`. You can get the image of 1920x1080.
 
 ### To get the image which width is 720px
 
-Just access to `/icons/main-720w.png`. You can get the image of 720x405, the same aspect as the original.
+Just access to `/icons/main-720w.png`. You can get the image of 720x405, the same aspect as the original one.
 
 Now you must be getting the hang of the protocol. Yes, just access to `/icons/main-405h.png` if you want just to specify the height.
 
@@ -33,7 +33,7 @@ Now you must be getting the hang of the protocol. Yes, just access to `/icons/ma
 
 You know there are some style. Access to `/icons/main-720w-300h-{mode}.png` according to the mode you want. 
 
-There are 2 modes, which is listed below:
+There are 2 modes, which are listed below:
 
 * `contain` mode (default)
 
