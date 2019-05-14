@@ -9,6 +9,13 @@ const args = process.argv.slice(2);
 const rootDir = args[0];
 const port = args[1];
 
+// upload page
+const upload = route.get('/upload',async (ctx,next)=>{
+  console.log(ctx.path);
+  ctx.body = 'Hello, Upload!\n';
+});
+app.use(upload);
+
 app.use(async (ctx, next) => {
     const elements = path.parse(ctx.path);
     // Returns:
