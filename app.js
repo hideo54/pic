@@ -1,4 +1,5 @@
 const Koa = require('koa');
+const koaBody = require('koa-body')({multipart: true});
 const app = new Koa();
 const route = require('koa-route');
 const fs = require('fs');
@@ -9,13 +10,19 @@ const args = process.argv.slice(2);
 const rootDir = args[0];
 const port = args[1];
 
-// upload page
-const upload = route.get('/upload',async (ctx,next)=>{
+const upload = route.post('/upload', async (ctx)=>{
   console.log(ctx.path);
-  ctx.body = 'Hello, Upload!\n';
+  const file = ctx.request.files.uploadFile;
+  console.log(`file path: ${file.path}`);
+  const reader = fs.createReadStream(file.path);
+  const stream = fs.createWriteStream(path.join(rootDir, Math.random().toString()));
+  reader.pipe(stream);
+  console.log('uploading %s -> %s', file.name, stream.path);
+  ctx.status = 200;
 });
-app.use(upload);
 
+app.use(koaBody);
+app.use(upload);
 app.use(async (ctx, next) => {
     const elements = path.parse(ctx.path);
     // Returns:
