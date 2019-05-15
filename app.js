@@ -11,14 +11,18 @@ const rootDir = args[0];
 const port = args[1];
 
 const upload = route.post('/upload', async (ctx)=>{
-  console.log(ctx.path);
   const file = ctx.request.files.uploadFile;
-  console.log(`file path: ${file.path}`);
+  const randFileName = Math.random().toString()+".png";
   const reader = fs.createReadStream(file.path);
-  const stream = fs.createWriteStream(path.join(rootDir, Math.random().toString()));
+  const stream = fs.createWriteStream(path.join(rootDir, randFileName));
+  console.log(ctx.path);
+  console.log(`file path: ${file.path}`);
+
   reader.pipe(stream);
   console.log('uploading %s -> %s', file.name, stream.path);
+
   ctx.status = 200;
+  ctx.body = randFileName;
 });
 
 app.use(koaBody);
@@ -34,7 +38,7 @@ app.use(async (ctx, next) => {
     console.log(ctx.path);
     if (elements.ext === '.png') {
         const splitted = elements.name.split('-')
-        const originalFilename = `${rootDir}${elements.dir}/${splitted[0]}.png`;
+        const originalFilename = `${rootDir}${elements.dir}${splitted[0]}.png`;
         const options = splitted.slice(1);
         console.log(originalFilename);
         try {
