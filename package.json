@@ -9,7 +9,8 @@
     "sharp": "^0.22.1"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.5"
+    "browser-sync": "^2.26.5",
+    "koa-body": "^4.1.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
