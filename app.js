@@ -6,9 +6,7 @@ const path = require('path');
 const qs = require('querystring');
 const sharp = require('sharp');
 
-const args = process.argv.slice(2);
-const rootDir = args[0] || `${__dirname}/data`;
-const port = args[1] || 3000;
+const rootDir = __dirname + '/data';
 
 app.use(async (ctx, next) => {
     const givenPath = path.parse(ctx.path);
@@ -98,4 +96,4 @@ app.use(async (ctx, next) => {
     }
 });
 
-app.listen(port);
+module.exports = app;
