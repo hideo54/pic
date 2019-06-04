@@ -10,21 +10,25 @@ const rootDir = args[0];
 const port = args[1];
 
 app.use(async (ctx, next) => {
-    const elements = path.parse(ctx.path);
-    // Returns:
-    // { root: '/',
-    //   dir: '/home/user/dir',
-    //   base: 'file.txt',
-    //   ext: '.txt',
-    //   name: 'file' }
-    console.log(ctx.path);
-    if (elements.ext === '.png') {
-        const splitted = elements.name.split('-')
-        const originalFilename = `${rootDir}${elements.dir}/${splitted[0]}.png`;
+    const givenPath = path.parse(ctx.path);
+    if (['.png'].includes(givenPath.ext) === false) {
+        ctx.status = 400;
+        ctx.body = 'Currently only .png is supported.';
+        return;
+    }
+    const splitted = givenPath.name.split('-');
+    const originalFilename = `${rootDir}${givenPath.dir}/${splitted[0]}.png`;
         const options = splitted.slice(1);
         console.log(originalFilename);
+
         try {
             fs.accessSync(originalFilename, fs.constants.R_OK);
+    } catch (err) {
+        ctx.status = 400;
+        ctx.body = "No such file.";
+        false;
+    }
+
             const widthDesc = options.filter(/./.test.bind(/^[0-9]+w$/));
             if (widthDesc.length > 2) {
                 ctx.status = 400;
@@ -51,7 +55,7 @@ app.use(async (ctx, next) => {
                         .toBuffer();
                 }
             } else {
-                // contain mode (even unless the mode is specified, because the contain mode is the default)
+        // contain mode (even unless the mode is specified, as default)
                 ctx.status = 200;
                 ctx.type = 'image/png';
                 const backgroundColor = { r: 255, g: 255, b: 255, alpha: 0 }; // TEMPORARY. The method to change this param is not implemented yet.
@@ -63,14 +67,6 @@ app.use(async (ctx, next) => {
                     .png()
                     .toBuffer();
             }
-        } catch (err) {
-            ctx.status = 400;
-            ctx.body = "No such file.";
-        }
-    } else {
-        ctx.status = 400;
-        ctx.body = 'Currently only .png is supported.';
-    }
 });
 
 app.listen(port);
