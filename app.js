@@ -7,8 +7,7 @@ const qs = require('querystring');
 const sharp = require('sharp');
 
 const args = process.argv.slice(2);
-const rootDir = args[0];
-const port = args[1];
+const port = args[1] || 3000;
 
 app.use(async (ctx, next) => {
     const givenPath = path.parse(ctx.path);
