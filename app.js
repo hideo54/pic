@@ -51,7 +51,7 @@ app.use(async (ctx, next) => {
     } catch (err) {
         ctx.status = 400;
         ctx.body = "No such file.";
-        false;
+        return false;
     }
 
     const widthDesc = options.filter(/./.test.bind(/^[0-9]+w$/));
