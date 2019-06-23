@@ -5,11 +5,8 @@ hideo54's ultra-nice image uploading/downloading server!
 ## Startup
 
 1. `npm i`
-1. `node app.js /absolute/path/to/root/dir 3000`
-
-So if you want to use pm2, run this command:
-
-`pm2 start app.js (any other your favorite pm2 options) -- /absolute/path/to/root/dir 3000`
+1. `cp sample.env .env` and edit `.env`
+1. `node server.js`
 
 ## Upload
 
