@@ -1,12 +1,12 @@
 import Fastify from 'fastify';
+import fastifyHttpProxy from '@fastify/http-proxy';
 import dotenv from 'dotenv';
 dotenv.config();
 
 const app = Fastify();
-app.get('/', async (request, reply) => {
-    reply.send({
-        message: 'Sorry, this fox is LoveLive! only.',
-    });
+
+app.register(fastifyHttpProxy, {
+    upstream: 'https://storage.googleapis.com/img.hideo54.com',
 });
 
 app.listen({
