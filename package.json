@@ -12,7 +12,7 @@
   "dependencies": {
     "@fastify/http-proxy": "^9.2.1",
     "dotenv": "^16.3.1",
-    "fastify": "^4.23.2"
+    "fastify": "^4.28.1"
   },
   "devDependencies": {
     "@types/node": "^20.8.4",
